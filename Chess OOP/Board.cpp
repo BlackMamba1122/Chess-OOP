@@ -25,18 +25,18 @@ void Board::init()
 
 			else if (ri == 0 && (ci == 1 || ci == 6))
 				Ps[ri][ci] = new Knight(position{ ri,ci }, Black, this);
-	//		else if (ri == 7 && (ci == 1 || ci == 6))
-	//			Ps[ri][ci] = new Knight(position{ ri,ci }, White, this);
+			else if (ri == 7 && (ci == 1 || ci == 6))
+				Ps[ri][ci] = new Knight(position{ ri,ci }, White, this);
 
 			else if (ri == 0 && (ci == 2 || ci == 5))
 				Ps[ri][ci] = new Bishop(position{ ri,ci }, Black, this);
-	//		else if (ri == 7 && (ci == 2 || ci == 5))
-	//			Ps[ri][ci] = new Bishop(position{ ri,ci }, White, this);
+			else if (ri == 7 && (ci == 2 || ci == 5))
+				Ps[ri][ci] = new Bishop(position{ ri,ci }, White, this);
 
 			else if (ri == 0 && ci == 3)
 				Ps[ri][ci] = new Queen(position{ ri,ci }, Black, this);
-	//		else if (ri == 7 && ci == 3)
-	//			Ps[ri][ci] = new Queen(position{ ri,ci }, White, this);
+			else if (ri == 7 && ci == 3)
+				Ps[ri][ci] = new Queen(position{ ri,ci }, White, this);
 
 			else if (ri == 0 && ci == 4)
 				Ps[ri][ci] = new King(position{ ri,ci }, Black, this);

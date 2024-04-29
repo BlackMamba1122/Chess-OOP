@@ -148,20 +148,22 @@ void Chess::selfcheck(bool H[][8], position _select, int ri, int ci, int kr, int
 
 void Chess::castling(bool H[][8], position _select)
 {
-	if (!b->getpiece(_select)->getFirst() && !b->getpiece(position{_select.ri,7})->getFirst())
-		if (b->getpiece(position{ _select.ri,5 }) == nullptr && b->getpiece(position{ _select.ri,6 }) == nullptr)
-		{
-			selfcheck(H, _select, _select.ri, 5);
-			if (H[_select.ri][5])
-				selfcheck(H, _select, _select.ri, 6);
-		}
-	if (!b->getpiece(_select)->getFirst() && !b->getpiece(position{ _select.ri,0 })->getFirst())
-		if (b->getpiece(position{ _select.ri,3 }) == nullptr && b->getpiece(position{ _select.ri,2 }) == nullptr && b->getpiece(position{ _select.ri,1 }) == nullptr)
-		{
-			selfcheck(H, _select, _select.ri, 3);
-			if (H[_select.ri][3])
-				selfcheck(H, _select, _select.ri, 2);
-		}
+	if (!b->getpiece(_select)->getFirst() && b->getpiece(position{_select.ri,7})!=nullptr)
+		if(!b->getpiece(position{ _select.ri,7 })->getFirst())
+			if (b->getpiece(position{ _select.ri,5 }) == nullptr && b->getpiece(position{ _select.ri,6 }) == nullptr)
+			{
+				selfcheck(H, _select, _select.ri, 5);
+				if (H[_select.ri][5])
+					selfcheck(H, _select, _select.ri, 6);
+			}
+	if (!b->getpiece(_select)->getFirst() && b->getpiece(position{ _select.ri,0 }) != nullptr)
+		if (!b->getpiece(position{ _select.ri,0 })->getFirst())
+			if (b->getpiece(position{ _select.ri,3 }) == nullptr && b->getpiece(position{ _select.ri,2 }) == nullptr && b->getpiece(position{ _select.ri,1 }) == nullptr)
+			{
+				selfcheck(H, _select, _select.ri, 3);
+				if (H[_select.ri][3])
+					selfcheck(H, _select, _select.ri, 2);
+			}
 }
 
 bool Chess::moveAvaliable(bool H[][8])
@@ -262,6 +264,7 @@ void Chess::play(char rep)
 				rdr << Undo << "  " << a.start.ri << "  " << a.start.ci << "  " << a.end.ri << "  " << a.end.ci <<"   -   " << endl;
 
 			b->Undoo(c1, c2, dim,0);
+			Ischeck = false;
 			Undo = false;
 		}
 		else
@@ -322,7 +325,7 @@ void Chess::replay()
 
 	while (rdr >> Undo)
 	{
-		Sleep(1000);
+		Sleep(100);
 		if (Undo)
 		{
 			info temp;
@@ -352,22 +355,24 @@ void Chess::replay()
 			if(b->getpiece(position{ kr,kc })!=nullptr)
 				b->getpiece(position{ kr,kc })->draw(kr * dim + 10, kc * dim + 20);
 			Ischeck = false;
-			if (b->getpiece(move)->getSym() == 'k')
+			if (b->getpiece(move) != nullptr)
 			{
-				if (select.ci - move.ci == 2)
+				if (b->getpiece(move)->getSym() == 'k')
 				{
-					b->movee(position{ select.ri,0 }, position{ select.ri,3 }, 1);
-					b->update(position{ select.ri,0 }, position{ select.ri,3 }, c1, c2, dim);
-				}
-				else if (select.ci - move.ci == -2)
-				{
-					b->movee(position{ select.ri,7 }, position{ select.ri,5 }, 1);
-					b->update(position{ select.ri,7 }, position{ select.ri,5 }, c1, c2, dim);
+					if (select.ci - move.ci == 2)
+					{
+						b->movee(position{ select.ri,0 }, position{ select.ri,3 }, 1);
+						b->update(position{ select.ri,0 }, position{ select.ri,3 }, c1, c2, dim);
+					}
+					else if (select.ci - move.ci == -2)
+					{
+						b->movee(position{ select.ri,7 }, position{ select.ri,5 }, 1);
+						b->update(position{ select.ri,7 }, position{ select.ri,5 }, c1, c2, dim);
+
+					}
 
 				}
-
 			}
-
 		}
 		Ischeck = check(kr, kc);
 		if (Ischeck)
