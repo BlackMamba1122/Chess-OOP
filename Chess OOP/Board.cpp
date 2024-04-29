@@ -175,8 +175,7 @@ void Board::Undoo(int c1, int c2, int dim, bool replay, info tempinfo, Color c,c
 		UndooUpdate(tempinfo, c1, c2, dim,1);
 	else
 		UndooUpdate(tempinfo, c1, c2, dim);
-	if(!replay)
-		undo.pop();
+	undo.pop();
 }
 void Board::UndooUpdate(info temp, int c1, int c2, int dim, bool replay)
 {

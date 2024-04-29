@@ -325,7 +325,7 @@ void Chess::replay()
 
 	while (rdr >> Undo)
 	{
-		Sleep(100);
+		Sleep(1000);
 		if (Undo)
 		{
 			info temp;
