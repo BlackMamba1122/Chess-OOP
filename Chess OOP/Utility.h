@@ -19,6 +19,7 @@ struct info
 	position start;
 	position end;
 	Piece* piece;
+	bool state;
 };
 enum Color{Black,White};
 
@@ -30,3 +31,9 @@ void SetClr(int tcl, int bcl);
 bool getRowColbyLeftClick(int& rpos, int& cpos);
 
 void save(position select, position move, bool undo);
+
+void startscreen(bool& n);
+
+void checkkk();
+
+void stalemate();

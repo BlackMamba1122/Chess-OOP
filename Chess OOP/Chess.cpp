@@ -1,4 +1,4 @@
-#include "Chess.h"
+﻿#include "Chess.h"
 #include "iostream"
 #include "Grid.h"
 #include <Windows.h>
@@ -16,7 +16,22 @@ Chess::Chess()
 
 void Chess::displayTurnMsg(Player* p)
 {
-	cout << p->getcolor() << " Turn\n";
+if (!p->getcolor())
+	std::cout << R"(
+											  (  (    (     (  (         
+											 ()) )\   )\   ()) )\        
+											(_)()(_) (_() ((_))(_)__     
+											| _ ) |  /   \/ __| |/ /     
+											| _ \ |__| - | (__|   <      
+											|___/____|_|_|\___|_|\_\     )" << '\n';
+else
+	std::cout << R"(
+											 (     (  ( (   ((        (( 
+											 )\    )\ )\)\  ))\)\ )\ (\()
+											((_)  ((()_)(_)((_)(_)(_))(_)
+											\ \    / / || |_ _|_   _| __|
+											 \ \/\/ /| __ || |  | | | _| 
+											  \_/\_/ |_||_|___| |_| |___|)" << '\n';
 }
 
 void Chess::selectPiece(int dim,bool& Undo)
@@ -30,10 +45,14 @@ void Chess::selectPiece(int dim,bool& Undo)
 
 void Chess::selectDestination(int dim)
 {
-	getRowColbyLeftClick(move.ri, move.ci);
-	move.ri = (move.ri - 10) / dim;
-	move.ci = (move.ci - 20) / dim;
 
+	bool t=true;
+	while(t)
+	{
+		t = getRowColbyLeftClick(move.ri, move.ci);
+		move.ri = (move.ri - 10) / dim;
+		move.ci = (move.ci - 20) / dim;
+	}
 }
 
 bool Chess::validSelect(position _select)
@@ -193,19 +212,21 @@ bool Chess::gameEnd()
 }
 
 
-void Chess::play(char rep)
+void Chess::play()
 {
+	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
+	bool rep=false;
+	startscreen(rep);
 	fstream rdr;
 	int c1 = 6, c2 = 14;
 	int kr=-1, kc=-1;
 	bool H[8][8],Ischeck=false;
 	bool game = true;
 	bool Undo = false;
-	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 	int eachRow,  eachCol,dim=8,tB=8;
 	printGrid(tB*dim,tB*dim,tB,eachRow, eachCol, -37,c1,c2);
 	b->displayBoard(dim);
-	if (rep == '2')
+	if (rep)
 	{
 		replay();
 		rdr.open("info.txt", std::ios::in | std::ios::out | std::ios::app);
@@ -215,7 +236,7 @@ void Chess::play(char rep)
 	while (game)
 	{	
 		SetClr(15, 0);
-		gotorowcol(8, 0);
+		gotorowcol(10, 0);
 		displayTurnMsg(ply[turn]);
 		//do		{
 
@@ -247,7 +268,6 @@ void Chess::play(char rep)
 
 			highlightBox(H, 3, dim);
 			selectDestination(dim);
-
 			UnhighlightBox(H, dim, c1, c2);
 
 			prevForm(select, c1, c2, dim);
@@ -303,13 +323,11 @@ void Chess::play(char rep)
 	}
 	system("cls");
 	SetClr(15, 0);
-	gotorowcol(40, 50);
+	gotorowcol(20, 50);
 	if (Ischeck)
-		cout << "   Check Mate   \n\n\n\n\n\n\n";
+		checkkk();
 	else
-		cout << "   StaleMate   \n\n\n\n\n\n\n\n";
-
-
+		stalemate();
 }
 
 void Chess::replay()
@@ -325,7 +343,7 @@ void Chess::replay()
 
 	while (rdr >> Undo)
 	{
-		Sleep(1000);
+		Sleep(400);
 		if (Undo)
 		{
 			info temp;

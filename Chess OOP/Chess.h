@@ -10,7 +10,7 @@ class Chess
 	int turn;
 public:
 	Chess();
-	void play(char rep);
+	void play();
 	void replay();
 private:
 	void displayTurnMsg(Player* p);
