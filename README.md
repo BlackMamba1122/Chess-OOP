@@ -8,14 +8,13 @@ This is a classic Chess game developed in C++ for console applications. It allow
 <img src="https://github.com/user-attachments/assets/74ed58ca-b347-4a32-917f-1f6c1d373a41" alt="Menu" width="700"/>
 
 ### Example Board
-<img src="https://github.com/user-attachments/assets/a5aefaa6-a87a-408e-9160-7791b82f3ee9
-f279" alt="Startup" width="700"/>
+<img src="https://github.com/user-attachments/assets/5829cb73-3870-41a6-a78c-002c14c1938d" alt="Startup" width="700"/>
 
 ### Highlight Moves
 <img src="https://github.com/user-attachments/assets/4c728948-d0b0-45b2-b2e5-b755094666e3" alt="Highlight Moves" width="700"/>
 
 ### Check
-<img src="[https://github.com/user-attachments/assets/ce8349ea-f2bb-4a1f-a7b7-e6a19123dfa7](https://github.com/user-attachments/assets/641f0e42-ecd4-4018-9926-5234d3e7775a)" alt="Check" width="700"/>
+<img src="https://github.com/user-attachments/assets/1689a7fd-2ed4-4648-bc97-7e87fb277212" alt="Check" width="700"/>
 
 ### CheckMate
 <img src="https://github.com/user-attachments/assets/02c937e1-ee8b-4194-9eee-e9983aac41e9" alt="CheckMate" width="700"/>
