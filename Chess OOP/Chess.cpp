@@ -247,7 +247,7 @@ void Chess::play()
 				printBox(kr * dim, kc * dim, dim, dim, -37, 12);
 				b->getpiece(position{ kr,kc })->draw(kr * dim + 10, kc * dim + 20);
 			}
-
+			
 			do
 			{
 				selectPiece(dim,Undo);
@@ -284,6 +284,12 @@ void Chess::play()
 				rdr << Undo << "  " << a.start.ri << "  " << a.start.ci << "  " << a.end.ri << "  " << a.end.ci <<"   -   " << endl;
 
 			b->Undoo(c1, c2, dim,0);
+			if (Ischeck)
+			{
+				prevForm(position{ kr,kc }, c1, c2, dim);
+				if (b->getpiece(position{ kr,kc }) != nullptr)
+					b->getpiece(position{ kr,kc })->draw(kr * dim + 10, kc * dim + 20);
+			}
 			Ischeck = false;
 			Undo = false;
 		}
@@ -406,7 +412,7 @@ void Chess::replay()
 	{
 		system("cls");
 		SetClr(15, 0);
-		gotorowcol(40, 50);
+		gotorowcol(60, 50);
 		if (Ischeck)
 			cout << "   Check Mate   \n\n\n\n\n\n\n";
 		else
